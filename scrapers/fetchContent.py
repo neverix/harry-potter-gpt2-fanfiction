@@ -32,7 +32,8 @@ def getFanFic():
             bsObj = BeautifulSoup(req.content, 'html.parser')
             try:
                 # try to get the text of the fanfiction
-                content = bsObj.find("div", {"class":"storytext xcontrast_txt nocopy"}).get_text()
+                # print(bsObj)
+                content = bsObj.find("div", {"id":"storytext"}).get_text()
                 storyText.append(content)
             except AttributeError:
                 print("Something went wrong with ID: " + storyID)
