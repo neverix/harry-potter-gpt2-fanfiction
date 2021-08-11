@@ -32,16 +32,21 @@ def getFanFic():
             bsObj = BeautifulSoup(req.content, 'html.parser')
             try:
                 # try to get the text of the fanfiction
-                content = bsObj.find("div", {"class":"storytext xcontrast_txt nocopy"}).get_text()
+                # print(bsObj)
+                content = bsObj.find("div", {"id":"storytext"}).get_text()
                 storyText.append(content)
             except AttributeError:
                 print("Something went wrong with ID: " + storyID)
+            sleep(1)
         rating = data["rating"]
         dirName = rating.lower().replace(": ", "-")
+        # print(dirName)
         if not os.path.exists(dirName):
             os.mkdir(dirName)
         # create a local text file saved under the story rating and the story id
         with open('%s/%s.txt' % (dirName, storyID), 'w') as outfile:
             outfile.write("\n".join(storyText))
+        from time import sleep
+        sleep(5)
 # run the function
 getFanFic()
