@@ -7,6 +7,7 @@ import csv
 import html5lib
 import pandas as pd
 import os
+from time import sleep
 
 def getFanFic():
     # open the csv with the summary data, which includes links to each post and its number of chapters
@@ -46,7 +47,6 @@ def getFanFic():
         # create a local text file saved under the story rating and the story id
         with open('%s/%s.txt' % (dirName, storyID), 'w') as outfile:
             outfile.write("\n".join(storyText))
-        from time import sleep
         sleep(5)
 # run the function
 getFanFic()
