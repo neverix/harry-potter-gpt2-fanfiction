@@ -8,11 +8,12 @@ import html5lib
 import pandas as pd
 import os
 from time import sleep
+from tqdm import tqdm
 
 def getFanFic():
     # open the csv with the summary data, which includes links to each post and its number of chapters
     df = pd.read_csv('HPSummary.csv')
-    for row, data in df.iterrows():
+    for row, data in tqdm(df.iterrows()):
         storyText = []
         link = data["link"]
         # get the link for each row
@@ -25,6 +26,7 @@ def getFanFic():
         storyID = data["link"].replace("https://www.fanfiction.net/s/", "")
         storyID = storyID.split("/")
         storyID = str(storyID[0])
+        print(storyID)
         # for all of the chapters
         for i in range(startChapter, chapterTotal):
             link =  firstLink + str(i) + lastLink
@@ -47,6 +49,6 @@ def getFanFic():
         # create a local text file saved under the story rating and the story id
         with open('%s/%s.txt' % (dirName, storyID), 'w') as outfile:
             outfile.write("\n".join(storyText))
-        sleep(5)
+        sleep(1)
 # run the function
 getFanFic()
